@@ -127,7 +127,7 @@
 
 <script>
 import PersianDate from "persian-date";
-import { computed, reactive } from "vue";
+import { computed, onMounted, reactive } from "vue";
 
 export default {
   name: "DatePicker",
