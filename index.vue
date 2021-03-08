@@ -251,6 +251,16 @@ export default {
       date: `${jalal.year()}/${jalal.month()}/${jalal.date()}`,
     });
 
+    onMounted(() => {
+      if (context.attrs.modelValue) {
+        const dateArr = context.attrs.modelValue.split("/");
+        state.year = Number(dateArr[0]);
+        state.month = Number(dateArr[1]);
+        state.selected = Number(dateArr[2]);
+        state.date = context.attrs.modelValue;
+      }
+    });
+
     const prevMonthHandle = () => {
       if (state.month <= 1) {
         state.month = 12;

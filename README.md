@@ -51,6 +51,12 @@ export default {
 </template>
 ```
 
+> WARNING: If you use default value for `v-model`, You should act like the following format:
+
+```vue
+const state = reactive({ date: "1399/12/16" // for example })
+```
+
 ## Available props
 
 | Prop        |   Type    |   Default    | Description                                                                                    |
