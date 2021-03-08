@@ -1,12 +1,16 @@
-<script setup>
-import DatePicker from "../index.vue";
-import "../dist/datepicker.min.css";
-import { reactive } from "@vue/reactivity";
+<br />
 
-const state = reactive({
-  date: "1399/12/16",
-});
-</script>
+[![npm](https://img.shields.io/npm/v/vue3-persian-datepicker)](https://www.npmjs.com/package/vue3-persian-datepicker)
+
+<iframe
+  title="star repo"
+  src="https://ghbtns.com/github-btn.html?user=mohammadoftadeh&repo=vue3-persian-datepicker&type=star"
+  frameworker="0"
+  scrolling="0"
+  width="75px"
+  height="25px"
+  frameBorder="none"
+></iframe>
 
 # Introduction
 
@@ -20,12 +24,19 @@ All date manipulation and formatting are done via the [PersianDate](https://gith
 
 ## Example
 
-Choose a date
+CodeSandBox Demo, Choose a date:
 
-<DatePicker v-model="state.date" />
+<iframe src="https://codesandbox.io/embed/blissful-shirley-pyqiw?autoresize=1&fontsize=14&hidenavigation=0&theme=dark&view=preview"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="vue3-persian-datepicker"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
 
 <br />
-Datepicker comes with styling, but input itself does not. You can use `.datePicker` class, like:
+<br />
+
+Datepicker comes with less styling, but input itself does not. You can use `.datePicker` class for styling input and all elements, like:
 
 ```css
 .datePicker input {
@@ -74,6 +85,14 @@ export default {
 <template>
   <DatePicker v-model="state.date" />
 </template>
+```
+
+::: warning NOTICE
+If you use default value for `v-model`, You should act like the following format:
+:::
+
+```js
+const state = reactive({ date: "1399/12/16" // for example })
 ```
 
 ## Available props
