@@ -5,10 +5,16 @@
       :name="name"
       :placeholder="placeholder"
       v-model="state.date"
+      ref="inputRef"
       @input="datePickerHandleChange"
       @focus="datePickerHandleShow(true, 'opened')"
+      @blur="datePickerHandleBlur"
     />
-    <section v-if="inline || state.showDatePicker" class="datePicker__section">
+    <section
+      v-if="inline || state.showDatePicker"
+      class="datePicker__section"
+      @mousedown.prevent
+    >
       <table>
         <div v-if="state.showMonthList" class="datePicker__div">
           <button
@@ -114,10 +120,8 @@
               {{ day }}
             </td>
           </tr>
-          <tr class="mt-3 mb-2 mx-1">
-            <button type="button" class="datePicker__button" @click="goToday">
-              امروز
-            </button>
+          <tr class="datePicker__button">
+            <button type="button" @click="goToday">امروز</button>
           </tr>
         </tbody>
       </table>
@@ -127,13 +131,15 @@
 
 <script>
 import PersianDate from "persian-date";
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 
 export default {
   name: "DatePicker",
   props: ["name", "inline", "format", "placeholder"],
   setup(props, context) {
     const jalal = new PersianDate();
+
+    const inputRef = ref(null);
 
     const state = reactive({
       year: jalal.year(),
@@ -292,6 +298,7 @@ export default {
         .toLocale("en")
         .format(props.format || "YYYY/MM/DD");
       datePickerHandleShow(false, "closed");
+      inputRef.value.blur();
       context.emit("update:modelValue", state.date);
       context.emit("selected", state.date);
     };
@@ -332,7 +339,12 @@ export default {
 
     const openYearList = () => {
       state.showYearList = true;
-      document.querySelector("button[data-scroll='1']").scrollIntoView();
+      scrollToElementD(".datePicker__div", "button[data-scroll='1']");
+    };
+
+    const scrollToElementD = (parent, toEl) => {
+      var topPos = document.querySelector(toEl).offsetTop;
+      document.querySelectorAll(parent)[0].scrollTop = topPos - 10;
     };
 
     const datePickerHandleChange = (event) => {
@@ -351,25 +363,14 @@ export default {
       context.emit(emit);
     };
 
-    document.onclick = function (event) {
-      if (
-        document.querySelector(".datePicker").contains(event.target) ||
-        (event.target.parentNode.classList &&
-          event.target.parentNode.classList["value"].indexOf(
-            "datePicker__div"
-          ) > -1)
-      ) {
-        return;
-      }
-
-      if (state.showDatePicker) {
-        datePickerHandleShow(false, "closed");
-        state.showYearList = false;
-        state.showMonthList = false;
-      }
+    const datePickerHandleBlur = () => {
+      datePickerHandleShow(false, "closed");
+      state.showYearList = false;
+      state.showMonthList = false;
     };
 
     return {
+      inputRef,
       state,
       prevMonthHandle,
       nextMonthHandle,
@@ -380,6 +381,7 @@ export default {
       openYearList,
       datePickerHandleChange,
       datePickerHandleShow,
+      datePickerHandleBlur,
     };
   },
 };

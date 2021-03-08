@@ -53,7 +53,7 @@ export default {
 
 > WARNING: If you use default value for `v-model`, You should act like the following format:
 
-```vue
+```js
 const state = reactive({ date: "1399/12/16" // for example })
 ```
 

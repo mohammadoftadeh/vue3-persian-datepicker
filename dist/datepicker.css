@@ -80,7 +80,7 @@
 .datePicker table tr th:not(.datePicker__th__button):not(.datePicker__th) {
   width: 30px;
   height: 30px;
-  line-height: 35px;
+  line-height: 30px;
   text-align: center;
   transition: 0.1s;
   transform: scale(0.9);
@@ -157,6 +157,10 @@
 }
 
 .datePicker .datePicker__button {
+  margin: 0.75rem 0.25rem 0.5rem;
+}
+
+.datePicker .datePicker__button button {
   background: #ffa64d !important;
   color: #fff;
   width: 100%;
