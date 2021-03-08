@@ -1,6 +1,12 @@
+/*! vue3-persian-datepicker v0.1.0 |
+ *  MIT License | 
+ *  Copyright (c) 2021 Mohammad Oftadeh |
+ *  https://github.com/mohammadoftadeh/vue3-persian-datepicker
+ */
 .datePicker {
   position: relative;
   width: fit-content;
+  direction: rtl;
 }
 .datePicker input {
   border: 1px solid #eee;
@@ -12,65 +18,66 @@
   transform: translateX(-50%);
   box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.3);
   border: 1px solid #eee;
+  z-index: 999;
 }
-table {
+.datePicker table {
   position: relative;
   background: #fff;
 }
 
-table tr th {
+.datePicker table tr th {
   font-weight: normal;
 }
 
-table thead tr:last-child {
+.datePicker table thead tr:last-child {
   margin-bottom: 0.5rem;
   color: #979ca6;
 }
 
-table thead tr:first-child th:first-child,
-table thead tr:first-child th:last-child {
+.datePicker table thead tr:first-child th:first-child,
+.datePicker table thead tr:first-child th:last-child {
   margin: 0 0.25rem;
 }
 
-table thead tr:first-child th button {
+.datePicker table thead tr:first-child th button {
   transition: 0.3s;
 }
 
-table thead tr:first-child th:first-child button,
-table thead tr:first-child th:last-child button {
+.datePicker table thead tr:first-child th:first-child button,
+.datePicker table thead tr:first-child th:last-child button {
   background: #efefef;
   border-radius: 5px;
 }
 
-table thead tr:first-child th:first-child button:hover,
-table thead tr:first-child th:last-child button:hover {
+.datePicker table thead tr:first-child th:first-child button:hover,
+.datePicker table thead tr:first-child th:last-child button:hover {
   background: #e6e4e4;
 }
 
-table thead tr:first-child th:nth-child(2) button {
+.datePicker table thead tr:first-child th:nth-child(2) button {
   margin-top: 0.3rem;
 }
 
-table thead tr:first-child th:nth-child(3) button {
+.datePicker table thead tr:first-child th:nth-child(3) button {
   font-size: 17px;
 }
 
-table tbody td.datePicker__td--disable {
+.datePicker table tbody td.datePicker__td--disable {
   color: #d2d6dc;
 }
 
-table tr {
+.datePicker table tr {
   display: flex;
   padding: 0 0.3rem;
 }
 
-table tr .datePicker__th__button button {
+.datePicker table tr .datePicker__th__button button {
   font-size: 13px;
   padding: 0.1rem 0.3rem;
 }
 
-table tr td,
-table tr th:not(.datePicker__th__button):not(.datePicker__th) {
+.datePicker table tr td,
+.datePicker table tr th:not(.datePicker__th__button):not(.datePicker__th) {
   width: 30px;
   height: 30px;
   line-height: 35px;
@@ -81,8 +88,9 @@ table tr th:not(.datePicker__th__button):not(.datePicker__th) {
   border-radius: 300px;
 }
 
-table tr td:hover:not(th):not(.datePicker__td--disable),
-table
+.datePicker table tr td:hover:not(th):not(.datePicker__td--disable),
+.datePicker
+  table
   tr
   th:not(.datePicker__th__button):not(.datePicker__th):hover:not(th):not(.datePicker__td--disable) {
   background: #ffa64d;
@@ -91,14 +99,14 @@ table
   cursor: pointer;
 }
 
-table thead tr:first-child {
+.datePicker table thead tr:first-child {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 0.5rem 0;
 }
 
-table .datePicker__div {
+.datePicker table .datePicker__div {
   position: absolute;
   content: "";
   top: 0;
@@ -115,7 +123,7 @@ table .datePicker__div {
   align-items: center;
 }
 
-table .datePicker__div button {
+.datePicker table .datePicker__div button {
   margin: 0.2rem 0.1rem;
   width: 60px;
   font-size: 15px;
@@ -124,26 +132,26 @@ table .datePicker__div button {
   border-radius: 5px;
   transition: 0.13s;
 }
-table .datePicker__div button:hover {
+.datePicker table .datePicker__div button:hover {
   background: #ffa64d;
   color: #fff;
 }
 
-table tr td.datePicker--highlight {
+.datePicker table tr td.datePicker--highlight {
   background: #fcc996;
 }
 
-.datePicker--active {
+.datePicker .datePicker--active {
   background: #ffa64d !important;
   color: #fff;
 }
 
-table tr .datePicker__td--active {
+.datePicker table tr .datePicker__td--active {
   background: #ffa64d !important;
   color: #fff;
 }
 
-.datePicker__div--invisible {
+.datePicker .datePicker__div--invisible {
   visibility: hidden;
   opacity: 0;
 }

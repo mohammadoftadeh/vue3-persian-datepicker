@@ -4,7 +4,9 @@
   "description": "Simple Vue 3 persian datepicker",
   "main": "index.vue",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
   },
   "repository": {
     "type": "git",
@@ -26,11 +28,12 @@
   },
   "homepage": "https://github.com/mohammadoftadeh/vue3-persian-datepicker#readme",
   "devDependencies": {
+    "vitepress": "^0.12.2",
     "vue": "^3.0.6"
   },
   "peerDependencies": {
-    "vue": "^3.0.6",
-    "persian-date": "^1.1.0"
+    "persian-date": "^1.1.0",
+    "vue": "^3.0.6"
   },
   "dependencies": {
     "persian-date": "^1.1.0"

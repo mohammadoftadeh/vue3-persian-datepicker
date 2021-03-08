@@ -3,6 +3,7 @@
     <input
       type="text"
       :name="name"
+      :placeholder="placeholder"
       v-model="state.date"
       @input="datePickerHandleChange"
       @focus="datePickerHandleShow(true, 'opened')"
@@ -133,7 +134,8 @@ import PersianDate from "persian-date";
 import { computed, reactive } from "vue";
 
 export default {
-  props: ["name", "inline"],
+  name: "DatePicker",
+  props: ["name", "inline", "format", "placeholder"],
   setup(props, context) {
     const jalal = new PersianDate();
 
@@ -280,7 +282,9 @@ export default {
         return;
 
       state.selected = index;
-      state.date = `${state.year}/${state.month}/${index}`;
+      state.date = new PersianDate([state.year, state.month, index])
+        .toLocale("en")
+        .format(props.format || "YYYY/MM/DD");
       datePickerHandleShow(false, "closed");
       context.emit("update:modelValue", state.date);
       context.emit("selected", state.date);

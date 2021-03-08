@@ -1,12 +1,37 @@
-# vue3-persian-datepicker
+<script setup>
+import DatePicker from "../index.vue";
+import "../dist/datepicker.min.css";
+import { reactive } from "@vue/reactivity";
+
+const state = reactive({
+  date: "1399/12/16",
+});
+</script>
+
+# Introduction
 
 This persian / jalali datepicker package is implemented with vue 3, it's simple and light.
 
-> NOTICE: Works only on projects with version 3.x vue.
+::: warning NOTICE
+Works only on projects with version 3.x vue.
+:::
 
 All date manipulation and formatting are done via the [PersianDate](https://github.com/babakhani/PersianDate) library, so it's a direct dependency of this picker.
 
-## [Documentation - Demo](https://mohammadoftadeh.github.io/vue3-persian-datepicker)
+## Example
+
+Choose a date
+
+<DatePicker v-model="state.date" />
+
+<br />
+Datepicker comes with styling, but input itself does not. You can use `.datePicker` class, like:
+
+```css
+.datePicker input {
+  /* add css style to the input */
+}
+```
 
 ## Installation
 
@@ -24,7 +49,7 @@ $ npm install vue3-persian-datepicker
 $ yarn add vue3-persian-datepicker
 ```
 
-## Usage
+Then import it in your code and use as a usual component:
 
 ```vue
 <script>
