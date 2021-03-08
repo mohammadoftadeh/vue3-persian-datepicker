@@ -115,11 +115,7 @@
             </td>
           </tr>
           <tr class="mt-3 mb-2 mx-1">
-            <button
-              type="button"
-              class="bg-orange w-full py-1 rounded text-white"
-              @click="goToday"
-            >
+            <button type="button" class="datePicker__button" @click="goToday">
               امروز
             </button>
           </tr>
