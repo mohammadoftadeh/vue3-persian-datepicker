@@ -254,7 +254,9 @@ export default {
       showYearList: false,
       showMonthList: false,
       showDatePicker: false,
-      date: `${jalal.year()}/${jalal.month()}/${jalal.date()}`,
+      date: new PersianDate([jalal.year(), jalal.month(), jalal.date()])
+        .toLocale("en")
+        .format("YYYY/MM/DD"),
     });
 
     onMounted(() => {

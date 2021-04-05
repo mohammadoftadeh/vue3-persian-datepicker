@@ -1,6 +1,6 @@
 {
   "name": "vue3-persian-datepicker",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Simple Vue 3 persian datepicker",
   "main": "index.vue",
   "scripts": {
