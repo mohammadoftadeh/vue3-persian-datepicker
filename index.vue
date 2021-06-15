@@ -1,3 +1,6 @@
+/*! vue3-persian-datepicker v0.1.6 | * MIT License | * Copyright (c) 2021
+Mohammad Oftadeh | * https://github.com/mohammadoftadeh/vue3-persian-datepicker
+*/
 <template>
   <div class="datePicker">
     <input
@@ -131,7 +134,7 @@
 
 <script>
 import PersianDate from "persian-date";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, onUpdated } from "vue";
 
 export default {
   name: "DatePicker",
@@ -144,7 +147,11 @@ export default {
     const state = reactive({
       year: jalal.year(),
       daysInMonth: computed(() => {
-        return (year, month) => new PersianDate([year, month]).daysInMonth();
+        return (year, month) => {
+          if (year && month) {
+            return new PersianDate([year, month]).daysInMonth();
+          }
+        };
       }),
       prevMonth: computed(() => {
         return (year, month) =>
@@ -159,11 +166,18 @@ export default {
       month: jalal.month(),
       today: jalal.date(),
       firstDayMonth: computed(() => {
-        return (year, month) =>
-          new PersianDate([year, month, 1]).format("dddd");
+        return (year, month) => {
+          if (year && month) {
+            return new PersianDate([year, month, 1]).format("dddd");
+          }
+        };
       }),
       monthName: computed(() => {
-        return (year, month) => new PersianDate([year, month]).format("MMMM");
+        return (year, month) => {
+          if (year && month) {
+            return new PersianDate([year, month]).format("MMMM");
+          }
+        };
       }),
       offsetDay: computed(() => {
         return (firstDayMonth) => {
@@ -186,8 +200,11 @@ export default {
         };
       }),
       lastDayMonth: computed(() => {
-        return (year, month, daysInMonth) =>
-          new PersianDate([year, month, daysInMonth]).format("dddd");
+        return (year, month, daysInMonth) => {
+          if (year && month) {
+            return new PersianDate([year, month, daysInMonth]).format("dddd");
+          }
+        };
       }),
       lastOffsetDay: computed(() => {
         return (lastDayMonth) => {
@@ -257,6 +274,12 @@ export default {
       date: new PersianDate([jalal.year(), jalal.month(), jalal.date()])
         .toLocale("en")
         .format("YYYY/MM/DD"),
+    });
+
+    onUpdated(() => {
+      state.date = context.attrs.modelValue
+        ? context.attrs.modelValue
+        : state.date;
     });
 
     onMounted(() => {
@@ -351,13 +374,15 @@ export default {
 
     const datePickerHandleChange = (event) => {
       const dateArr = event.target.value.split("/");
+
       if (Number(dateArr[1]) > 12) return;
 
       state.year = Number(dateArr[0]);
       state.month = Number(dateArr[1]);
       state.today = Number(dateArr[2]);
       state.selected = state.today;
-      context.emit("update:modelValue", event.target.value);
+      // context.emit("update:modelValue", event.target.value);
+      context.emit("input:value", event.target.value);
     };
 
     const datePickerHandleShow = (flag, emit) => {
@@ -388,3 +413,187 @@ export default {
   },
 };
 </script>
+
+<style>
+/*! vue3-persian-datepicker v0.1.6 |
+ *  MIT License | 
+ *  Copyright (c) 2021 Mohammad Oftadeh |
+ *  https://github.com/mohammadoftadeh/vue3-persian-datepicker
+ */
+.datePicker {
+  position: relative;
+  width: fit-content;
+  direction: rtl;
+}
+.datePicker input {
+  border: 1px solid #333;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 1.3rem;
+  text-align: left;
+}
+
+.datePicker button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.datePicker .datePicker__section {
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #eee;
+  z-index: 999;
+}
+.datePicker table {
+  position: relative;
+  background: #fff;
+}
+
+.datePicker table tr th {
+  font-weight: normal;
+}
+
+.datePicker table thead tr:last-child {
+  margin-bottom: 0.5rem;
+  color: #979ca6;
+}
+
+.datePicker table thead tr:first-child th:first-child,
+.datePicker table thead tr:first-child th:last-child {
+  margin: 0 0.25rem;
+}
+
+.datePicker table thead tr:first-child th button {
+  transition: 0.3s;
+}
+
+.datePicker table thead tr:first-child th:first-child button,
+.datePicker table thead tr:first-child th:last-child button {
+  background: #efefef;
+  border-radius: 5px;
+}
+
+.datePicker table thead tr:first-child th:first-child button:hover,
+.datePicker table thead tr:first-child th:last-child button:hover {
+  background: #e6e4e4;
+}
+
+.datePicker table thead tr:first-child th:nth-child(2) button {
+  margin-top: 0.3rem;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.datePicker table thead tr:first-child th:nth-child(3) button {
+  font-size: 17px;
+}
+
+.datePicker table tbody td.datePicker__td--disable {
+  color: #d2d6dc;
+}
+
+.datePicker table tr {
+  display: flex;
+  padding: 0 0.3rem;
+}
+
+.datePicker table tr .datePicker__th__button button {
+  font-size: 13px;
+  padding: 0.1rem 0.3rem;
+}
+
+.datePicker table tr td,
+.datePicker table tr th:not(.datePicker__th__button):not(.datePicker__th) {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  transition: 0.1s;
+  font-weight: normal;
+  border-radius: 300px;
+}
+
+.datePicker table tr td:hover:not(th):not(.datePicker__td--disable),
+.datePicker
+  table
+  tr
+  th:not(.datePicker__th__button):not(.datePicker__th):hover:not(th):not(.datePicker__td--disable) {
+  background: #ffa64d;
+  color: #fff;
+  cursor: pointer;
+}
+
+.datePicker table thead tr:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.datePicker table .datePicker__div {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding: 0.3rem;
+  z-index: 9999;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.datePicker table .datePicker__div button {
+  margin: 0.2rem 0.1rem;
+  width: 60px;
+  font-size: 15px;
+  padding: 0.3rem 0.2rem;
+  text-align: center;
+  border-radius: 5px;
+  transition: 0.13s;
+}
+.datePicker table .datePicker__div button:hover {
+  background: #ffa64d;
+  color: #fff;
+}
+
+.datePicker table tr td.datePicker--highlight {
+  background: #fcc996;
+}
+
+.datePicker .datePicker--active {
+  background: #ffa64d !important;
+  color: #fff;
+}
+
+.datePicker table tr .datePicker__td--active {
+  background: #ffa64d !important;
+  color: #fff;
+}
+
+.datePicker .datePicker__div--invisible {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.datePicker .datePicker__button {
+  margin: 0.75rem 0.25rem 0.5rem;
+}
+
+.datePicker .datePicker__button button {
+  background: #ffa64d !important;
+  color: #fff;
+  width: 100%;
+  padding: 0.25rem 0;
+  border-radius: 5px;
+}
+</style>
