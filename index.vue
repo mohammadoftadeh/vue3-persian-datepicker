@@ -381,8 +381,8 @@ export default {
       state.month = Number(dateArr[1]);
       state.today = Number(dateArr[2]);
       state.selected = state.today;
-      // context.emit("update:modelValue", event.target.value);
-      context.emit("input:value", event.target.value);
+      context.emit("update:modelValue", event.target.value);
+      // context.emit("input:value", event.target.value);
     };
 
     const datePickerHandleShow = (flag, emit) => {
